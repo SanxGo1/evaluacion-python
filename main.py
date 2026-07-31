@@ -1,4 +1,4 @@
-from registrarEvaluacion import registrarEvaluacion,consultarEvaluacion,calcularPromedio()
+from registrarEvaluacion import registrarEvaluacion,consultarEvaluacion,calcularPromedio
 
 
 
