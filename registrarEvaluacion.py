@@ -18,9 +18,6 @@ def registrarEvaluacion():
         if not nombre.replace(" ", "").isalpha():
             raise ValueError("Error: El nombre solo puede contener letras y espacios.")
 
-        if nombre in estudiantes:
-            raise ValueError("Error: El estudiante ya se encuentra registrado en el sistema.")
-
         try:
             calificacion = float(input("Ingrese la calificación (0-100): ").strip())
         except ValueError:
