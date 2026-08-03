@@ -29,9 +29,26 @@ def registrarEvaluacion():
         if calificacion < 0 or calificacion > 100:
             raise ValueError("Error: La calificación debe estar entre 0 y 100.")
 
+        añoActual = datetime.now().year
+        
+        fecha_input = input(f"Ingrese la fecha de la evaluación (YYYY-MM-DD) o presione Enter para usar la actual: ").strip()
+        
+        if fecha_input:
+            try:
+                fechaObjetiva = datetime.strptime(fecha_input, "%Y-%m-%d")
+                if fechaObjetiva.year < añoActual:
+                    raise ValueError(f"Error: No se pueden registrar evaluaciones de años anteriores al actual ({añoActual}).")
+                fecha_registro = fechaObjetiva.strftime("%Y-%m-%d %H:%M:%S")
+            except ValueError as ex:
+                if "Error:" in str(ex):
+                    raise ex
+                raise ValueError("Error: Formato de fecha inválido. Use YYYY-MM-DD.")
+        else:
+            fecha_registro = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+  
         estudiantes[nombre] = {
             "calificacion": calificacion,
-            "fecha": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            "fecha": fecha_registro
         }
 
         guardar_json("calificacion.json", estudiantes)
